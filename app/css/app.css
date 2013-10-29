@@ -1,14 +1,6 @@
+/* General */
 html, body {
   height: 100%;
-}
-
-#topBar .container .collapse form select {
-  width: 10%;
-}
-
-#topBar .container .collapse form {
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 #wrap {
@@ -18,6 +10,23 @@ html, body {
   margin: 0 auto -100px;
 }
 
+#wrap > .container  {
+  padding-top: 60px;
+}
+
+
+/* Header */
+#topBar .container .collapse form select {
+  width: 10%;
+}
+
+#topBar .container .collapse form {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+
+/* Footer */
 .push, footer {
   height: 100px;
 }
@@ -35,10 +44,47 @@ footer {
   }
 }
 
-#wrap > .container  {
-  padding-top: 60px;
-}
-
 footer > .container  {
   padding-top: 25px;
+}
+
+/* Home */
+#home-content {
+  text-align: center;
+}
+
+#home-content h1 {
+  font-weight: bold;
+}
+
+#home-content * {
+  margin-bottom: 20px;
+}
+
+#home-content p {
+  font-size: 16px;
+}
+
+#home-content form {
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#home-content form * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+#home-content form select {
+  width: 20%;
+  display: inline-block;
+}
+
+/* Profile */
+#summoner-header div {
+  display: inline-block;
+  width: 30%;
 }
