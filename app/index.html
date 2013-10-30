@@ -28,12 +28,12 @@
               <li class="active"><a href="#/home">Home</a></li>
               <li><a href="#">Info and Contact</a></li>
             </ul>
-            <form class="form-inline" role="form">
+            <form class="form-inline" role="form" ng-controller="SearchSummonerCtrl" ng-submit="search(summonerName, serverName)">
               <div class="form-group">
                 <label class="sr-only" for="summonerName">Summoner name</label>
-                <input type="text" class="form-control" id="summonerName" placeholder="Search a summoner...">
+                <input type="text" class="form-control" ng-model="summonerName" placeholder="Search a summoner...">
               </div>
-              <select name="serverName" class="form-control">
+              <select ng-model="serverName" class="form-control">
                 <option value="EUW">EU West</option>
                 <option value="EUNE">EU Nordic &amp; East</option>
                 <option value="NA">North America</option>
