@@ -398,10 +398,13 @@ function buildJson(parameters) {
 	var server = parameters.serverName;
 
 	return {
-		"server": server,
-		"summoner": summonerApi(summoner),
-		"ranked_stats": rankedStatsApi(summoner),
-		"recent_games": recentGamesApi(summoner),
-		"leagues": leaguesApi(summoner),
+		"data": {
+			"server": server,
+			"summoner": summonerApi(summoner),
+			"ranked_stats": rankedStatsApi(summoner),
+			"recent_games": recentGamesApi(summoner),
+			"leagues": leaguesApi(summoner),
+		},
+		"success": true,
 	}
 }
