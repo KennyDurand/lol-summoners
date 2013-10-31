@@ -12,12 +12,14 @@ angular.module('LoLSummoners.controllers', []).
 
 	$scope.search = function(summonerName, serverName) {
 		var url = 'http://137.194.11.186:8124/?summonerName=' + summonerName + '&serverName=' + serverName;
-		$http.get(url).success(function(data, status, headers, config) {
-	    	alert(data);
+		
+		$http({method: 'GET', url: url}).success(function(data) {
+	    	alert('YOUPI');
 	  	}).
 	  	error(function(data, status, headers, config) {
-	    	alert(data);
+	    	alert('OH NOES');
 	  	});
+		
 	}
   }])
   .controller('ProfileCtrl', [function() {

@@ -5,7 +5,8 @@ var server = http.createServer(function(req, res) {
   	var parameters = url.parse(req.url, true).query;
   	if (parameters.summonerName && parameters.serverName) {
   		res.writeHead(200, {
-    		'Content-Type': 'application/json'
+    		'Content-Type': 'application/json',
+    		'Access-Control-Allow-Origin': '*'
   		});  
 
   		res.end(JSON.stringify(buildJson(parameters)));
@@ -16,7 +17,7 @@ server.listen(8124);
 console.log('Server running at http://localhost:8124/');
 
 function randomInteger(limit) {
-	return Math.floor(Math.random()*limit+1);
+	return Math.floor(Math.random()*(limit+1));
 }
 
 function summonerApi(summoner) {
@@ -355,10 +356,10 @@ function leaguesApi(summoner) {
 	var ranksKind = ["I", "II", "III", "IV", "V"];
 
 	leaguesKind.forEach(function(leagueName) {
-		var tier = tiersKind[randomInteger(tiersKind.length - 1)];
-		var rank = ranksKind[randomInteger(ranksKind.length - 1)];
-
 		if (randomInteger(1) == 0) {
+			var tier = tiersKind[randomInteger(tiersKind.length - 1)];
+			var rank = ranksKind[randomInteger(ranksKind.length - 1)];
+
 			leaguesArray.push({
 	            "queue":leagueName,
 	            "name":Math.random().toString(36).slice(2),
