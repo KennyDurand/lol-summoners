@@ -1,9 +1,19 @@
-<div id="home-content">
+<div id="home-content" ng-controller="SearchSummonerCtrl" >
   <h1 class="text-center">Welcome on League of Legends Summoners!</h1>
 
   <p class="text-center">Want to check some League of Legends summoner stats? Type his name in the box below and discover his stats!</p>
 
-  <form role="form" ng-controller="SearchSummonerCtrl" ng-submit="search(summonerName, serverName)">
+  <form name="searchForm" role="form" ng-submit="search(summonerName, serverName)">
+
+  <div class="alert alert-danger" ng-show="searchForm.$invalid">
+    <strong>We can't find any information about this summoner!</strong>
+    <ul>
+      <li>Did you type correctly the summoner's nickname?</li>
+      <li>Did you select the right server?</li>
+      <li>Are you still connected to the Internet?</li>
+      <li>Did you pray for the mighty Chthulhu three times before clicking on the button?</li>
+    </ul>
+  </div>
     <div class="form-group">
       <label class="sr-only" for="summonerName">Summoner name</label>
       <input type="text" class="form-control" ng-model="summonerName" placeholder="Search a summoner...">

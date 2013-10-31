@@ -73,14 +73,17 @@ footer > .container  {
 }
 
 #home-content form * {
-  margin-top: 5px;
   margin-bottom: 5px;
-  text-align: center;
 }
 
 #home-content form select {
   width: 20%;
   display: inline-block;
+}
+
+#home-content div.alert.alert-danger {
+  text-align: left;
+  margin-bottom: 15px;
 }
 
 /* Profile */
