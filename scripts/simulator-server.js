@@ -1,17 +1,54 @@
 var http = require('http');
 var url = require('url');
+var querystring = require('querystring');
+var request = require('request');
+var app_token = '643848432313317|SqqLeDPy-doGrYzgdVOxBOUW0Dg';
 
-var server = http.createServer(function(req, res) { 
-  	var parameters = url.parse(req.url, true).query;
-  	if (parameters.summonerName && parameters.serverName) {
-  		res.writeHead(200, {
-    		'Content-Type': 'application/json',
-    		'Access-Control-Allow-Origin': '*'
-  		});  
+var server = http.createServer(function(req, res) {
+	var parameters = url.parse(req.url, true).query;
+	if (req.url.match(/^\/publish?/)) {
+		if (parameters.userToken && parameters.objectToShare && parameters.userId) {
+			appRequestData = querystring.stringify({
+				object: parameters.objectToShare,
+				access_token: app_token
+			});
 
-  		res.end(JSON.stringify(buildJson(parameters)));
-  		console.log('Request received with summonerName = "' + parameters.summonerName + '" and serverName = "' + parameters.serverName + '"');
-  	}
+			request.post(
+				{
+					uri:'https://graph.facebook.com/app/objects/lol-summoners:game',
+					headers:{'content-type': 'application/x-www-form-urlencoded'},
+					body: appRequestData
+				},
+				function(err,res,body){
+					meRequestData = querystring.stringify({
+						game: JSON.parse(body).id,
+						access_token: parameters.userToken,
+					});
+
+					request.post(
+						{
+							uri:'https://graph.facebook.com/' + parameters.userId + '/lol-summoners:share',
+							headers:{'content-type': 'application/x-www-form-urlencoded'},
+							body: meRequestData
+						},
+						function(err,res,body){
+							console.log(body)
+						}
+					);
+				}
+			);
+		}
+	} else {
+		if (parameters.summonerName && parameters.serverName) {
+			res.writeHead(200, {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+
+		res.end(JSON.stringify(buildJson(parameters)));
+		console.log('Request received with summonerName = "' + parameters.summonerName + '" and serverName = "' + parameters.serverName + '"');
+		}
+	}
 });
 server.listen(8124);
 console.log('Server running at http://localhost:8124/');
