@@ -19,7 +19,8 @@ var server = http.createServer(function(req, res) {
 					headers:{'content-type': 'application/x-www-form-urlencoded'},
 					body: appRequestData
 				},
-				function(err,res,body){
+				function(err,result,body){
+					console.log('Game done: '+ body)
 					meRequestData = querystring.stringify({
 						game: JSON.parse(body).id,
 						access_token: parameters.userToken,
@@ -31,8 +32,13 @@ var server = http.createServer(function(req, res) {
 							headers:{'content-type': 'application/x-www-form-urlencoded'},
 							body: meRequestData
 						},
-						function(err,res,body){
-							console.log(body)
+						function(err,result,body){
+							console.log('Share done: '+ body)
+							res.writeHead(200, {
+								'Content-Type': 'application/json',
+								'Access-Control-Allow-Origin': '*'
+							});
+							res.end(body);
 						}
 					);
 				}
