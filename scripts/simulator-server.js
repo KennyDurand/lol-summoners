@@ -96,7 +96,7 @@ function rankedStatsApi(summoner) {
 		var championStats = [
 				{
 		           "statType":"TOTAL_PENTA_KILLS",
-		           "value":randomInteger(3),
+		           "value":randomInteger(1),
 		           "championId":i
 		        },
 		        {
@@ -161,17 +161,17 @@ function rankedStatsApi(summoner) {
 		        },
 		        {
 		           "statType":"TOTAL_QUADRA_KILLS",
-		           "value":randomInteger(50),
+		           "value":randomInteger(5),
 		           "championId":i
 		        },
 		        {
 		           "statType":"TOTAL_TRIPLE_KILLS",
-		           "value":randomInteger(500),
+		           "value":randomInteger(30),
 		           "championId":i
 		        },
 		        {
 		           "statType":"TOTAL_DOUBLE_KILLS",
-		           "value":randomInteger(5000),
+		           "value":randomInteger(200),
 		           "championId":i
 		        },
 		        {
@@ -196,7 +196,7 @@ function rankedStatsApi(summoner) {
 		        },
 		        {
 		           "statType":"TOTAL_CHAMPION_KILLS",
-		           "value":randomInteger(10000),
+		           "value":randomInteger(500),
 		           "championId":i
 		        },
 		        {
