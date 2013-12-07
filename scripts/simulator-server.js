@@ -6,7 +6,13 @@ var app_token = '643848432313317|SqqLeDPy-doGrYzgdVOxBOUW0Dg';
 
 var server = http.createServer(function(req, res) {
 	var parameters = url.parse(req.url, true).query;
-	if (req.url.match(/^\/publish?/)) {
+	if (req.url.match(/^\/publish_?/)) {
+		if (req.url.match(/^\/publish_game?/)) {
+			objectName = 'game';
+		} else if (req.url.match(/^\/publish_summoner?/)) {
+			objectName = 'summoner'
+		}
+
 		if (parameters.userToken && parameters.objectToShare && parameters.userId) {
 			appRequestData = querystring.stringify({
 				object: parameters.objectToShare,
@@ -15,16 +21,23 @@ var server = http.createServer(function(req, res) {
 
 			request.post(
 				{
-					uri:'https://graph.facebook.com/app/objects/lol-summoners:game',
+					uri:'https://graph.facebook.com/app/objects/lol-summoners:' + objectName,
 					headers:{'content-type': 'application/x-www-form-urlencoded'},
 					body: appRequestData
 				},
 				function(err,result,body){
-					console.log('Game done: '+ body)
-					meRequestData = querystring.stringify({
-						game: JSON.parse(body).id,
-						access_token: parameters.userToken,
-					});
+					console.log(objectName + ' done: '+ body)
+					if (objectName == 'game') {
+						meRequestData = querystring.stringify({
+							game: JSON.parse(body).id,
+							access_token: parameters.userToken,
+						});
+					} else {
+						meRequestData = querystring.stringify({
+							summoner: JSON.parse(body).id,
+							access_token: parameters.userToken,
+						});
+					}
 
 					request.post(
 						{

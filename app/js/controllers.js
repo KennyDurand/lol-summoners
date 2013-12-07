@@ -43,4 +43,42 @@ angular.module('LoLSummoners.controllers', []).
 	$scope.getAverage = function(dataType) {
 		return (parseFloat($scope.getSum(dataType)) / $scope.countGames).toFixed(1);
 	}
+
+	$scope.publishSummoner = function() {
+		FB.login(function(response) {
+			if (response.authResponse && response.status == 'connected') {
+				var leagueName = 'Unranked';
+				$scope.playerData.leagues.summonerLeagues.forEach(function(league) {
+					if (league.queue == "RANKED_SOLO_5x5") {
+						leagueName = league.tier + ' ' + league.requestorsRank;
+					}
+				});
+				var shareObject = {
+					"title": $scope.playerData.summoner.name + '\'s profile',
+					"url": window.location.origin + window.location.pathname,
+					"image":'http://upload.wikimedia.org/wikipedia/fr/7/77/League_of_Legends_logo.png',
+					"data": {
+						"summoner_name":$scope.playerData.summoner.name,
+						"level":$scope.playerData.summoner.summonerLevel,
+						"server":$scope.playerData.server,
+						"league":leagueName
+					}
+				};
+
+				var requestData = decodeURIComponent($.param({
+					userToken: response.authResponse.accessToken,
+					userId: response.authResponse.userID,
+					objectToShare: encodeURIComponent(JSON.stringify(shareObject)),
+				}));
+
+				$.post('http://137.194.11.186:8124/publish_summoner?'+requestData).
+					done(function() {
+						alert('cooool');
+					})
+					.fail(function() {
+						alert('NOOOO');
+					});
+			}
+		});
+	}
   }]);
