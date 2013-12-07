@@ -26,6 +26,7 @@ angular.module('LoLSummoners.controllers', []).
   }])
   .controller('ProfileCtrl', ['$scope', '$rootScope', function ProfileCtrl($scope, $rootScope) {
 	$scope.playerData = $rootScope.playerData;
+	$scope.generalStats = {};
 
 	$scope.getSum = function(dataType) {
 		var count = 0;
@@ -37,6 +38,12 @@ angular.module('LoLSummoners.controllers', []).
 
 		return count;
 	}
+
+	$scope.playerData.ranked_stats.lifetimeStatistics.map(function(element) {
+		if (!(element.statType in $scope.generalStats)) {
+			$scope.generalStats[element.statType] = $scope.getSum(element.statType);
+		}
+	});
 
 	$scope.countGames = $scope.getSum('TOTAL_SESSIONS_PLAYED');
 
