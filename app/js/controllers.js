@@ -45,6 +45,9 @@ angular.module('LoLSummoners.controllers', []).
 		}
 	});
 
+
+	$scope.recentGames = $scope.playerData.recent_games.gameStatistics;
+
 	$scope.countGames = $scope.getSum('TOTAL_SESSIONS_PLAYED');
 
 	$scope.getAverage = function(dataType) {
@@ -87,5 +90,46 @@ angular.module('LoLSummoners.controllers', []).
 					});
 			}
 		});
+	}
+
+	$scope.searchIntoStatistics = function(match, statName) {
+		var i = 0;
+		while (i < match.statistics.length && match.statistics[i].statType != statName) {
+			i++;
+		}
+		if (i >= match.statistics.length) {
+			return false;
+		} else {
+			return match.statistics[i].value;
+		}
+	}
+
+	$scope.setMatchClass = function(match) {
+		return 'match-details alert alert-' + ($scope.searchIntoStatistics(match, 'WIN') == 1 ? 'success' : 'danger');
+	}
+
+	$scope.getRatio = function(match) {
+		var results = [];
+		var statNames = ['CHAMPIONS_KILLED', 'NUM_DEATHS', 'ASSISTS'];
+
+		statNames.forEach(function(statName) {
+			results.push($scope.searchIntoStatistics(match, statName));
+		});
+
+		return results.join('/');
+	}
+
+	$scope.getItems = function(match) {
+		var results = [];
+		var statNames = ['ITEM1', 'ITEM2', 'ITEM3', 'ITEM4', 'ITEM5', 'ITEM6'];
+
+		statNames.forEach(function(statName) {
+			var value = null;
+			if (value = $scope.searchIntoStatistics(match, statName)) {
+				results.push(value);
+			}
+		});
+
+		return results.join(', ');
 	}
   }]);

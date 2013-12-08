@@ -30,4 +30,22 @@
             </tr>
         </table>
     </div>
+
+    <div id="matches">
+        <div ng-class="setMatchClass(match)" ng-repeat="match in recentGames">
+            <p><strong>Champion:</strong> {{ match.championId }}</p>
+            <p><strong>Queue:</strong> {{ match.queueType }}</p>
+            <p><strong>Ratio:</strong> {{ getRatio(match) }}</p>
+            <p><strong>Minions killed:</strong> {{ searchIntoStatistics(match, 'MINIONS_KILLED') }}</p>
+            <p><strong>Gold earned:</strong> {{ searchIntoStatistics(match, 'GOLD_EARNED') }}</p>
+            <p><strong>Summoner spells:</strong> {{ match.spell1 }} and {{ match.spell2 }}</p>
+            <p><strong>Items:</strong> {{ getItems(match) }}</p>
+            <table class="table-striped">
+                <tr ng-repeat="item in match.statistics">
+                    <td>{{ item.statType }}</td>
+                    <td>{{ item.value }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

@@ -272,6 +272,10 @@ function recentGamesApi(summoner) {
                   "value":1+randomInteger(4999)
                },
                {
+                  "statType":"ITEM6",
+                  "value":1+randomInteger(4999)
+               },
+               {
                   "statType":"PHYSICAL_DAMAGE_DEALT_PLAYER",
                   "value":randomInteger(150000)
                },
