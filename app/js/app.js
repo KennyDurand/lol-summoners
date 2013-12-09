@@ -13,7 +13,10 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
   $routeProvider.when('/profile', {templateUrl: 'partials/profile.html', controller: 'ProfileCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+}]).
+run(function ($rootScope) {
+    $rootScope.simulatorServerUrl = 'http://localhost:8124/';
+});
 
 $(function() {
 	// Additional JS functions here

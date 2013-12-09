@@ -12,7 +12,7 @@ angular.module('LoLSummoners.controllers', []).
 	$scope.data = null;
 
 	$scope.search = function(summonerName, serverName) {
-		var url = 'http://137.194.11.186:8124/?summonerName=' + summonerName + '&serverName=' + serverName;
+		var url = $rootScope.simulatorServerUrl + '?summonerName=' + summonerName + '&serverName=' + serverName;
 
 		$http({method: 'GET', url: url}).success(function(data) {
 			$rootScope.playerData = data.data;
@@ -81,7 +81,7 @@ angular.module('LoLSummoners.controllers', []).
 					objectToShare: encodeURIComponent(JSON.stringify(shareObject)),
 				}));
 
-				$.post('http://137.194.11.186:8124/publish_summoner?'+requestData).
+				$.post($rootScope.simulatorServerUrl + 'publish_summoner?'+requestData).
 					done(function() {
 						alert('cooool');
 					})
@@ -113,7 +113,7 @@ angular.module('LoLSummoners.controllers', []).
 					objectToShare: encodeURIComponent(JSON.stringify(shareObject)),
 				}));
 
-				$.post('http://137.194.11.186:8124/publish_game?'+requestData).
+				$.post($rootScope.simulatorServerUrl + 'publish_game?'+requestData).
 					done(function() {
 						alert('cooool');
 					})
