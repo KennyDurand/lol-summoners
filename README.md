@@ -18,6 +18,8 @@ Move to the root directory of the project, and use these two commands to run the
 If you want/need to run the simulator server on a different IP address or a different port, it is possible, but you need to change the
 value of the global variable `simulatorServerUrl`, in file `app.js`, line 18.
 
+WARNING: Facebook functions might not be working, since the application is in sandbox mode, and is only available for administrators.
+
 UML
 ---
 [Summoner]<>1-*[Match]
