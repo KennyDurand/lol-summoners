@@ -81,14 +81,14 @@ angular.module('LoLSummoners.controllers', []).
 					}));
 
 					$.post($rootScope.simulatorServerUrl + 'publish_summoner?'+requestData).
-						done(function() {
-							alert('cooool');
+						success(function() {
+							alert('Publication effectuée.');
 						})
 						.fail(function() {
-							alert('NOOOO');
+							alert('Publication échouée !');
 						});
 				}
-			});
+			}, {scope: 'publish_actions'});
 		}
 
 		$scope.publishMatch = function(match) {
@@ -113,14 +113,14 @@ angular.module('LoLSummoners.controllers', []).
 					}));
 
 					$.post($rootScope.simulatorServerUrl + 'publish_game?'+requestData).
-						done(function() {
-							alert('cooool');
+						success(function() {
+							alert('Publication effectuée.');
 						})
 						.fail(function() {
-							alert('NOOOO');
+							alert('Publication échouée !');
 						});
 				}
-			});
+			}, {scope: 'publish_actions'});
 		}
 
 		$scope.searchIntoStatistics = function(match, statName) {
