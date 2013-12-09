@@ -39,4 +39,9 @@ $(function() {
 		js.src = "//connect.facebook.net/en_US/all.js";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+
+	$('body').delegate("#profile-tabs a", "click", function (e) {
+		e.preventDefault();
+		$(this).tab('show')
+	})
 });

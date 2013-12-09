@@ -91,3 +91,7 @@ footer > .container  {
   display: inline-block;
   width: 30%;
 }
+
+#profile-tabs li:hover {
+  cursor: pointer;
+}
