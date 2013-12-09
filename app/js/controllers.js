@@ -66,7 +66,7 @@ angular.module('LoLSummoners.controllers', []).
 				var shareObject = {
 					"title": $scope.playerData.summoner.name + '\'s profile',
 					"url": window.location.origin + window.location.pathname,
-					"image":'http://upload.wikimedia.org/wikipedia/fr/7/77/League_of_Legends_logo.png',
+					"image":'http://ispeedify.com/wp-content/uploads/2013/07/league-of-legends-logo-lol.png',
 					"data": {
 						"summoner_name":$scope.playerData.summoner.name,
 						"level":$scope.playerData.summoner.summonerLevel,
@@ -82,6 +82,38 @@ angular.module('LoLSummoners.controllers', []).
 				}));
 
 				$.post('http://137.194.11.186:8124/publish_summoner?'+requestData).
+					done(function() {
+						alert('cooool');
+					})
+					.fail(function() {
+						alert('NOOOO');
+					});
+			}
+		});
+	}
+
+	$scope.publishMatch = function(match) {
+		FB.login(function(response) {
+			if (response.authResponse && response.status == 'connected') {
+				var shareObject = {
+					"title": match.championId + ' (' + $scope.getRatio(match) + ')',
+					"url": window.location.origin + window.location.pathname,
+					"image":'http://ispeedify.com/wp-content/uploads/2013/07/league-of-legends-logo-lol.png',
+					"data": {
+						"summoner_name": $scope.playerData.summoner.name,
+						"ratio":$scope.getRatio(match),
+						"champion_name":match.championId,
+						"map_name":match.gameMapId
+					}
+				};
+
+				var requestData = decodeURIComponent($.param({
+					userToken: response.authResponse.accessToken,
+					userId: response.authResponse.userID,
+					objectToShare: encodeURIComponent(JSON.stringify(shareObject)),
+				}));
+
+				$.post('http://137.194.11.186:8124/publish_game?'+requestData).
 					done(function() {
 						alert('cooool');
 					})
