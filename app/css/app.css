@@ -95,3 +95,13 @@ footer > .container  {
 #profile-tabs li:hover {
   cursor: pointer;
 }
+
+#matches .left-column {
+  width: 45%;
+  display: block;
+  float: left;
+}
+
+#matches .left-column {
+  width: 45%;
+}
