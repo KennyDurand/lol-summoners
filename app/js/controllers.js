@@ -114,12 +114,25 @@ angular.module('LoLSummoners.controllers', []).
 			return itemArray[id-1];
 		}
 
+		var setMap = function(id) {
+			var mapArray = [
+				'Summoner\'s Rift',
+				'Howling Abyss',
+				'Twisted Treeline',
+				'Crystal Scar',
+			];
+
+			return mapArray[id-1];
+		}
+
 		$scope.transform = function(data) {
 			data.recent_games.gameStatistics.forEach(function(game, index) {
 				game.championId = setChampion(game.championId);
 
 				game.spell1 = setSpell(game.spell1);
 				game.spell2 = setSpell(game.spell2);
+
+				game.gameMapId = setMap(game.gameMapId);
 
 				game.statistics.forEach(function(element) {
 					if (element.statType.match(/^ITEM[0-9]$/)) {
@@ -204,7 +217,9 @@ angular.module('LoLSummoners.controllers', []).
 							"summoner_name": $scope.playerData.summoner.name,
 							"ratio":$scope.getRatio(match),
 							"champion_name":match.championId,
-							"map_name":match.gameMapId
+							"map_name":match.gameMapId,
+							"spells":$scope.getSpells(match),
+							"items":$scope.getItems(match),
 						}
 					};
 
@@ -252,6 +267,15 @@ angular.module('LoLSummoners.controllers', []).
 			});
 
 			return results.join(', ');
+		}
+
+		$scope.getSpells = function(match) {
+			var results = [];
+
+			results.push(match.spell1);
+			results.push(match.spell2);
+
+			return results.join(' and ');
 		}
 
 		$scope.filterStats = function(stats, blacklist) {

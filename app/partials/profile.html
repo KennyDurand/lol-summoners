@@ -10,7 +10,7 @@
                 <h3>{{ getSum('TOTAL_SESSIONS_WON')}} Wins - {{ getSum('TOTAL_SESSIONS_LOST') }} Losses</h3>
             </div>
             <div class="right-column">
-                <button id="fb-post" ng-click="publishSummoner()">
+                <button id="fb-summoner-post" ng-click="publishSummoner()">
                     Facebook
                 </button>
             </div>
@@ -40,8 +40,9 @@
                         <p><strong>Ratio:</strong> {{ getRatio(match) }}</p>
                         <p><strong>Minions killed:</strong> {{ searchIntoStatistics(match, 'MINIONS_KILLED') }}</p>
                         <p><strong>Gold earned:</strong> {{ searchIntoStatistics(match, 'GOLD_EARNED') }}</p>
-                        <p><strong>Summoner spells:</strong> {{ match.spell1 }} and {{ match.spell2 }}</p>
+                        <p><strong>Summoner spells:</strong> {{ getSpells(match) }}</p>
                         <p><strong>Items:</strong> {{ getItems(match) }}</p>
+                        <p><strong>Map:</strong> {{ match.gameMapId }}</p>
                     </div>
                     <div class="middle-column">
                         <table class="table-striped">
@@ -52,7 +53,7 @@
                         </table>
                     </div>
                     <div class="right-column">
-                        <button id="fb-post" ng-click="publishMatch(match)">
+                        <button id="fb-match-post-{{ match.gameId }}" ng-click="publishMatch(match)">
                                 Facebook
                         </button>
                     </div>
