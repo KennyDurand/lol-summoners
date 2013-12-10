@@ -248,7 +248,7 @@ function recentGamesApi(summoner) {
 		});
 	}
 
-	for (i=0; i<10; i++) {
+	for (i=0; i<3+randomInteger(7); i++) {
 		matchesArray.push({
             "ranked": randomInteger(1) == 0 ? true : false,
             "skinIndex": randomInteger(5),
@@ -269,10 +269,6 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM5",
-                  "value":1+randomInteger(4999)
-               },
-               {
-                  "statType":"ITEM6",
                   "value":1+randomInteger(4999)
                },
                {

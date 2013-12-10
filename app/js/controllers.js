@@ -152,7 +152,7 @@ angular.module('LoLSummoners.controllers', []).
 
 		$scope.getItems = function(match) {
 			var results = [];
-			var statNames = ['ITEM1', 'ITEM2', 'ITEM3', 'ITEM4', 'ITEM5', 'ITEM6'];
+			var statNames = ['ITEM0', 'ITEM1', 'ITEM2', 'ITEM3', 'ITEM4', 'ITEM5'];
 
 			statNames.forEach(function(statName) {
 				var value = null;
@@ -162,5 +162,36 @@ angular.module('LoLSummoners.controllers', []).
 			});
 
 			return results.join(', ');
+		}
+
+		$scope.filterStats = function(stats, blacklist) {
+			var result = {};
+			stats.forEach(function(item) {
+				if ($.inArray(item.statType, blacklist) < 0) {
+					result[item.statType] = item.value;
+				}
+			});
+
+			return result;
+		}
+
+		$scope.filterMatchStats = function(stats) {
+			var blacklist = [
+				'CHAMPIONS_KILLED',
+				'ITEM0',
+				'ITEM1',
+				'ITEM2',
+				'ITEM3',
+				'ITEM4',
+				'ITEM5',
+				'ASSISTS',
+				'NEUTRAL_MINIONS_KILLED',
+				'GOLD_EARNED',
+				'NUM_DEATHS',
+				'WIN',
+				'MINIONS_KILLED',
+			];
+
+			return $scope.filterStats(stats, blacklist);
 		}
 	}]);
