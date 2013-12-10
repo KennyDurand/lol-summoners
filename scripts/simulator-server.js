@@ -90,7 +90,7 @@ function summonerApi(summoner) {
 
 function rankedStatsApi(summoner) {
 	var statsArray = [];
-	for (i=100; i < 110; i++) {
+	for (i=1; i < 16; i++) {
 		var games = 1+randomInteger(49);
 		var lost = randomInteger(games);
 		var championStats = [
@@ -231,24 +231,24 @@ function recentGamesApi(summoner) {
 	var matchesArray = [];
 	var fellowPlayers = [];
 
-	for (i=0; i<4; i++) {
-		fellowPlayers.push({
-            "championId":1+randomInteger(140),
-			"summonerId":1+randomInteger(9999),
-			"summonerName":Math.random().toString(36).slice(2),
-			"teamId":100
-		});
-	}
-	for (i=0; i<5; i++) {
-		fellowPlayers.push({
-            "championId":1+randomInteger(140),
-			"summonerId":1+randomInteger(9999),
-			"summonerName":Math.random().toString(36).slice(2),
-			"teamId":200
-		});
-	}
-
 	for (i=0; i<3+randomInteger(7); i++) {
+		for (j=0; j<4; j++) {
+			fellowPlayers.push({
+				"championId":1+randomInteger(14),
+				"summonerId":1+randomInteger(9999),
+				"summonerName":Math.random().toString(36).slice(2),
+				"teamId":100
+			});
+		}
+		for (j=0; j<5; j++) {
+			fellowPlayers.push({
+				"championId":1+randomInteger(14),
+				"summonerId":1+randomInteger(9999),
+				"summonerName":Math.random().toString(36).slice(2),
+				"teamId":200
+			});
+		}
+
 		matchesArray.push({
             "ranked": randomInteger(1) == 0 ? true : false,
             "skinIndex": randomInteger(5),
@@ -258,8 +258,8 @@ function recentGamesApi(summoner) {
             "eligibleFirstWinOfDay":randomInteger(1) == 0 ? true : false,
             "gameMapId":1+randomInteger(3),
             "leaver":randomInteger(99) > 80 ? true : false,
-            "spell1":1+randomInteger(15),
-            "spell2":1+randomInteger(15),
+            "spell1":1+randomInteger(10),
+            "spell2":1+randomInteger(10),
             "teamId":100,
             "summonerId":0,
             "statistics":[
@@ -269,7 +269,7 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM5",
-                  "value":1+randomInteger(4999)
+                  "value":1+randomInteger(25)
                },
                {
                   "statType":"PHYSICAL_DAMAGE_DEALT_PLAYER",
@@ -305,7 +305,7 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM0",
-                  "value":1+randomInteger(5000)
+                  "value":1+randomInteger(25)
                },
                {
                   "statType":"NUM_DEATHS",
@@ -317,7 +317,7 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM4",
-                  "value":1+randomInteger(5000)
+                  "value":1+randomInteger(25)
                },
                {
                   "statType":"TOTAL_HEAL",
@@ -361,11 +361,11 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM2",
-                  "value":1+randomInteger(5000)
+                  "value":1+randomInteger(25)
                },
                {
                   "statType":"ITEM1",
-                  "value":1+randomInteger(5000)
+                  "value":1+randomInteger(25)
                },
                {
                   "statType":"LEVEL",
@@ -377,7 +377,7 @@ function recentGamesApi(summoner) {
                },
                {
                   "statType":"ITEM3",
-                  "value":1+randomInteger(5000)
+                  "value":1+randomInteger(25)
                }
             ],
             "afk":randomInteger(100) > 80 ? true : false,
@@ -395,7 +395,7 @@ function recentGamesApi(summoner) {
             "subType":"RANKED_SOLO_5x5",
             "queueType":"RANKED_SOLO_5x5",
             "premadeTeam":randomInteger(1) == 0 ? true : false,
-            "championId":1+randomInteger(140)
+            "championId":1+randomInteger(14)
 		});
 	}
 

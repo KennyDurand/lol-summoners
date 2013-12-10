@@ -29,11 +29,113 @@ angular.module('LoLSummoners.controllers', []).
 			return count;
 		}
 
+		$scope.searchIntoStatistics = function(match, statName) {
+			var i = 0;
+			while (i < match.statistics.length && match.statistics[i].statType != statName) {
+				i++;
+			}
+			if (i >= match.statistics.length) {
+				return false;
+			} else {
+				return match.statistics[i].value;
+			}
+		}
+
+		var setSpell = function(id) {
+			var spellArray = [
+				'Heal',
+				'Barrier',
+				'Cleanse',
+				'Ignite',
+				'Flash',
+				'Clarity',
+				'Teleport',
+				'Revive',
+				'Exhaust',
+				'Clairvoyance',
+				'Surge',
+			];
+
+			return spellArray[id-1];
+		}
+
+		var setChampion = function(id) {
+			var championArray = [
+				'Ezreal',
+				'Annie',
+				'Katarina',
+				'Jarvan IV',
+				'Cho\'gath',
+				'Kog\'maw',
+				'Zed',
+				'Kassadin',
+				'Caitlyn',
+				'Blitzcrank',
+				'Thresh',
+				'Lee Sin',
+				'Skarner',
+				'Rumble',
+				'Singed',
+			];
+
+			return championArray[id-1];
+		}
+
+		var setItem = function(id) {
+			var itemArray = [
+				'Zhonya\'s Hourglass',
+				'Lich Bane',
+				'Amplifying Tome',
+				'Fiendish Codex',
+				'Doran\'s Blade',
+				'Doran\'s Shield',
+				'Doran\'s Ring',
+				'Thornmail',
+				'Rabadon\'s Deathcap',
+				'Randuin\'s Omen',
+				'Needlessly Large Rod',
+				'Ancient Coin',
+				'Relic Shield',
+				'Spellthief Edge',
+				'Tear of the Goddess',
+				'Chalice of Harmony',
+				'Hexdrinker',
+				'BF Sword',
+				'Zeal',
+				'Phantom Dancer',
+				'Infinity Edge',
+				'Bloodthirster',
+				'Blade of the Ruined King',
+				'Quicksilver Sash',
+				'Aegis of the Legion',
+				'Locket of Iron Solari',
+			];
+
+			return itemArray[id-1];
+		}
+
+		$scope.transform = function(data) {
+			data.recent_games.gameStatistics.forEach(function(game, index) {
+				game.championId = setChampion(game.championId);
+
+				game.spell1 = setSpell(game.spell1);
+				game.spell2 = setSpell(game.spell2);
+
+				game.statistics.forEach(function(element) {
+					if (element.statType.match(/^ITEM[0-9]$/)) {
+						element.value = setItem(element.value);
+					}
+				})
+			});
+
+			return data;
+		}
+
 		var url = $rootScope.simulatorServerUrl + '?summonerName=' + $routeParams.summonerName + '&serverName=' + $routeParams.serverName;
 
 		$http({method: 'GET', url: url}).
 			success(function(data) {
-				$scope.playerData = data.data;
+				$scope.playerData = $scope.transform(data.data);
 
 				$scope.generalStats = {};
 				$scope.playerData.ranked_stats.lifetimeStatistics.map(function(element) {
@@ -121,18 +223,6 @@ angular.module('LoLSummoners.controllers', []).
 						});
 				}
 			}, {scope: 'publish_actions'});
-		}
-
-		$scope.searchIntoStatistics = function(match, statName) {
-			var i = 0;
-			while (i < match.statistics.length && match.statistics[i].statType != statName) {
-				i++;
-			}
-			if (i >= match.statistics.length) {
-				return false;
-			} else {
-				return match.statistics[i].value;
-			}
 		}
 
 		$scope.setMatchClass = function(match) {
